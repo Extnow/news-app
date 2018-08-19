@@ -4,6 +4,9 @@
 # production
 /build
 
+#eslint config
+.eslintrc
+
 # misc
 .DS_Store
 .env.local
