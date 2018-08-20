@@ -22,7 +22,10 @@ export default class News extends React.Component {
     return (
       <div className="news">
         {this.renderNews()}
-        {data.length ? <strong>Всего новостей: {data.length}</strong> : null}
+        {data.length ? (
+          <strong>Всего новостей: {data.length}</strong>
+        ) : null}
+        <br />
       </div>
     );
   }
