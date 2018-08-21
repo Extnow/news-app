@@ -1,15 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Add extends React.Component {
   state = {
     author: '',
+    title: '',
     text: '',
     checkbox: false,
   };
 
   handleChange = (e) => {
-    const { id } = e.currentTarget;
-    this.setState({ [id]: e.currentTarget.value });
+    const { id, value } = e.currentTarget;
+    this.setState({ [id]: value });
   };
 
   handleCheckboxChange = (e) => {
@@ -17,23 +19,29 @@ export default class Add extends React.Component {
   };
 
   onBtnClick = (e) => {
-    const { author, text } = this.state;
-
     e.preventDefault();
-    alert(`${author}\n${text}`);
+
+    const { onAddNews } = this.props;
+    const { author, title, text } = this.state;
+
+    onAddNews({
+      id: +new Date(), author, title, text,
+    });
   };
 
   validate = () => {
-    const { author, text, checkbox } = this.state;
+    const {
+      author, title, text, checkbox,
+    } = this.state;
 
-    if (author.trim() && text.trim() && checkbox) {
+    if (author.trim() && title.trim() && text.trim() && checkbox) {
       return true;
     }
     return false;
   };
 
   render() {
-    const { author, text } = this.state;
+    const { author, title, text } = this.state;
 
     return (
       <React.Fragment>
@@ -45,6 +53,13 @@ export default class Add extends React.Component {
             className="add__author"
             placeholder="Ваше имя"
             value={author}
+          />
+          <textarea
+            id="title"
+            onChange={this.handleChange}
+            className="add__text"
+            placeholder="Заголовок новости"
+            value={title}
           />
           <textarea
             id="text"
@@ -63,10 +78,14 @@ export default class Add extends React.Component {
             disabled={!this.validate()}
             onClick={this.onBtnClick}
           >
-            Показать alert
+            Добавить новость
           </button>
         </form>
       </React.Fragment>
     );
   }
 }
+
+Add.propTypes = {
+  onAddNews: PropTypes.func,
+}.isRequred;

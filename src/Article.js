@@ -14,6 +14,7 @@ export default class Article extends React.Component {
   render() {
     const { data } = this.props;
     const { author, title, text } = data;
+
     const { visible } = this.state;
 
     return (
@@ -21,7 +22,7 @@ export default class Article extends React.Component {
         <h1>{author}</h1>
         <p>{title}</p>
         {
-          !visible && <a onClick={this.handleReadMoreClick} href="/">подробнее</a>
+          !visible && <a onClick={this.handleReadMoreClick} href="#readmore">подробнее</a>
         }
         {
           visible && <p>{text}</p>
@@ -33,6 +34,7 @@ export default class Article extends React.Component {
 
 Article.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.number,
     author: PropTypes.string,
     title: PropTypes.string,
     text: PropTypes.string,
